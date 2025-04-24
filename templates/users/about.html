@@ -1,0 +1,132 @@
+{% extends 'users/base.html' %}
+
+{% block title %}About Us - SmartFit Companion{% endblock %}
+
+{% block content %}
+<section class="about-container">
+    <div class="intro">
+        <h1>Meet Your Smart Fitness Companion 🤖</h1>
+        <p>
+            At <strong > Health & Fitness Companion</strong>, we're more than just a fitness app — 
+            we're your daily dose of motivation, personalized coaching, and well-being all wrapped into one smart platform.
+        </p>
+    </div>
+
+    <div class="features">
+        <div class="feature-card">
+            {% load static %}
+            <img src="{% static 'images/train.jpeg' %}" alt="AI Trainer">
+            <h2>AI-Powered Training</h2>
+            <p>Your fitness coach, 24/7. No judgment, only encouragement and smart suggestions tailored just for you.</p>
+        </div>
+        <div class="feature-card">
+            <img src="{% static 'images/meallog.jpg' %}" alt="Meal Logging">
+            <h2>Smart Meal Logging</h2>
+            <p>Snap, log, and track your meals with ease. We bring clarity to your nutrition game.</p>
+        </div>
+        <div class="feature-card">
+            <img src="{% static 'images/workouts.jpg' %}" alt="Workout Analytics">
+            <h2>Visual Workout Analytics</h2>
+            <p>Every squat, every run, every lift — we make it count with meaningful insights.</p>
+        </div>
+    </div>
+
+    <div class="team-section">
+        <h2>Built by Dreamers & Doers 💻💡</h2>
+        <p>We’re a group of tech enthusiasts, health nerds, and design geeks on a mission to redefine fitness with AI.</p>
+    </div>
+
+    <div class="cta">
+        <h2>Ready to get started?</h2>
+        <a class="cta-button" href="{% url 'login' %}">Join the Movement 🚀</a>
+    </div>
+</section>
+<style>
+    .about-container {
+    padding: 3rem;
+    max-width: 1000px;
+    margin: auto;
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+    animation: fadeIn 1s ease-in;
+}
+
+.intro h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+}
+
+.intro p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 2rem;
+}
+
+.features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.feature-card {
+    background: #f9f9f9;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    width: 280px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+}
+
+.feature-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+
+.feature-card h2 {
+    margin-top: 1rem;
+    color: #1abc9c;
+}
+
+.team-section {
+    margin-top: 4rem;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.cta {
+    margin-top: 3rem;
+    background-color: #1abc9c;
+    padding: 2rem;
+    border-radius: 1rem;
+    color: white;
+}
+
+.cta-button {
+    background-color: white;
+    color: #1abc9c;
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #ecf0f1;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+</style>
+{% endblock %}

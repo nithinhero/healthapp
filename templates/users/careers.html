@@ -1,0 +1,115 @@
+{% extends 'users/base.html' %}
+{% block title %}Careers - Health_fitness_ai Companion{% endblock %}
+
+{% block content %}
+<section class="career-hero">
+  <div class="career-overlay">
+    <h1 class="career-title">Join Our Mission</h1>
+    <p class="career-subtitle">Be part of a revolution in health, fitness, and AI.</p>
+    <a href="{% url 'login' %}" class="apply-btn">Explore Open Roles</a>
+  </div>
+</section>
+
+<section class="career-details">
+  <div class="career-content">
+    <h2>Why Work With Us?</h2>
+    <p>
+      At Health_fitness_ai Companion, we blend innovation and passion to build tech-driven fitness solutions.
+      Whether you're a developer, designer, or strategist, your work directly impacts lives.
+    </p>
+    {% load static %}
+    <img src="{% static 'images/carrier.jpeg' %}" alt="Our Team" class="career-image">
+    <p>
+      We value diversity, curiosity, and integrity. Our team thrives in a collaborative environment where creativity is celebrated.
+    </p>
+  </div>
+</section>
+<style>
+    .career-hero {
+  background: url('/static/images/fitness_team.jpg') center/cover no-repeat;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 4rem;
+}
+
+.career-overlay {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 3rem;
+  text-align: center;
+  color: #fff;
+  border-radius: 10px;
+  animation: fadeIn 2s ease-in-out;
+}
+
+.career-title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+
+.career-subtitle {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+}
+
+.apply-btn {
+  padding: 0.75rem 1.5rem;
+  background: #ff5722;
+  color: #fff;
+  font-size: 1rem;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: 0.3s ease-in-out;
+  box-shadow: 0 4px 12px rgba(255, 87, 34, 0.3);
+}
+
+.apply-btn:hover {
+  background: #e64a19;
+  box-shadow: 0 6px 16px rgba(255, 87, 34, 0.4);
+}
+
+.career-details {
+  padding: 2rem 3rem;
+  background: linear-gradient(to right, #ffffff, #f9f9f9);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.career-content {
+  text-align: center;
+  max-width: 800px;
+  margin: auto;
+}
+
+.career-content h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.career-content p {
+  font-size: 1.1rem;
+  color: #555;
+  margin: 1rem 0;
+}
+
+.career-image {
+  margin: 2rem 0;
+  border-radius: 12px;
+  width: 100%;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+</style>
+{% endblock %}

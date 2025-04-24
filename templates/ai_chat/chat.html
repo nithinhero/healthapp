@@ -1,0 +1,210 @@
+{% extends "users/base.html" %}
+
+{% block title %}AI Health Chat{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+        margin: 0;
+        padding: 0;
+    }
+
+    .chat-container {
+        max-width: 700px;
+        margin: 40px auto;
+        padding: 30px;
+        background: white;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        border-radius: 20px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .chat-container:hover {
+        transform: scale(1.01);
+    }
+
+    .chat-container h2 {
+        text-align: center;
+        font-size: 28px;
+        color: #333;
+        margin-bottom: 25px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    textarea {
+        resize: none;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        font-size: 16px;
+        height: 120px;
+        transition: border 0.2s ease-in-out;
+    }
+
+    textarea:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+    button {
+        padding: 12px;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    button[type="submit"] {
+        background-color: #4caf50;
+        color: white;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    .response {
+        margin-top: 25px;
+        padding: 20px;
+        border-radius: 15px;
+        background: #e6f7ff;
+        border-left: 6px solid #2196F3;
+        animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .response.nutrition {
+        background: #fff8e1;
+        border-left: 6px solid #ff9800;
+    }
+
+    .speak-button {
+        margin-top: 10px;
+        padding: 8px 16px;
+        background-color: #333;
+        color: white;
+        border-radius: 8px;
+        font-size: 14px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .speak-button:hover {
+        background-color: #111;
+    }
+
+    .mic-button {
+        margin-top: 10px;
+        padding: 8px 16px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 8px;
+        font-size: 14px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .mic-button:hover {
+        background-color: #0056b3;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+        .chat-container {
+            margin: 20px;
+            padding: 20px;
+        }
+
+        textarea {
+            height: 100px;
+        }
+    }
+</style>
+
+<div class="chat-container">
+    <h2>🧠 AI Nutrition Assistant</h2>
+
+    <form method="POST" onsubmit="return validateForm()">
+        {% csrf_token %}
+        <textarea id="query" name="query" placeholder="Ask a health-related question...">{{ query }}</textarea>
+        <button type="submit">Send Request</button>
+    </form>
+
+    <button class="mic-button" onclick="startListening()">🎙️ Speak Question</button>
+
+    {% if response %}
+        <div class="response">
+            <strong>🤖 AI Text Response:</strong><br>
+            {{ response|linebreaks }}
+            <button class="speak-button" onclick="speakText(`{{ response|escapejs }}`)">🔊 Speak Text</button>
+        </div>
+    {% endif %}
+
+</div>
+
+<script>
+function speakText(text) {
+    const synth = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    utterance.rate = 1;
+    synth.speak(utterance);
+}
+
+function startListening() {
+    if (!('webkitSpeechRecognition' in window)) {
+        alert("Your browser doesn't support speech recognition.");
+        return;
+    }
+
+    const recognition = new webkitSpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.onstart = function() {
+        console.log('Voice recognition started');
+    };
+
+    recognition.onspeechend = function() {
+        console.log('Voice recognition ended');
+        recognition.stop();
+    };
+
+    recognition.onresult = function(event) {
+        const query = event.results[0][0].transcript;
+        document.getElementById('query').value = query;
+    };
+
+    recognition.onerror = function(event) {
+        console.log('Error occurred in speech recognition: ' + event.error);
+    };
+
+    recognition.start();
+}
+
+// Validate the form to ensure at least one input method is used
+function validateForm() {
+    const textInput = document.getElementById('query').value.trim();
+
+    if (!textInput) {
+        alert("Please provide a query or use voice input.");
+        return false; // Prevent form submission
+    }
+    return true;
+}
+</script>
+
+{% endblock %}

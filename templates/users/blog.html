@@ -1,0 +1,128 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block title %}Our Blog - Health_fitness_ai Companion{% endblock %}
+
+{% block content %}
+<section class="blog-section">
+  <div class="container">
+    <h1 class="page-title">Our Blog</h1>
+    <p class="blog-intro">🚀 Dive into the world of fitness, tech, and AI. Discover powerful stories, product updates, and community highlights curated just for you.</p>
+
+    <div class="blog-grid">
+      <!-- Blog 1 -->
+      <div class="blog-card">
+        <img src="{% static 'images/blog1.jpg' %}" alt="AI and Fitness" class="blog-img">
+        <div class="blog-info">
+          <h2 class="blog-title">AI and Fitness: A Perfect Match</h2>
+          <p class="blog-description">Explore how AI is transforming the fitness industry, from personalized training to injury prevention...</p>
+          <a href="{% url 'blog_detail' slug='ai-and-fitness' %}" class="btn-read">Read More</a>
+        </div>
+      </div>
+
+      <!-- Blog 2 -->
+      <div class="blog-card">
+        <img src="{% static 'images/blog2.jpg' %}" alt="Tech and Wellness" class="blog-img">
+        <div class="blog-info">
+          <h2 class="blog-title">How Tech is Changing Wellness Trends</h2>
+          <p class="blog-description">A deep dive into the latest wellness technologies that are helping people achieve a healthier lifestyle...</p>
+          <a href="{% url 'blog_detail' slug='tech-wellness' %}" class="btn-read">Read More</a>
+        </div>
+      </div>
+
+      <!-- Blog 3 -->
+      <div class="blog-card">
+        <img src="{% static 'images/blog3.jpeg' %}" alt="Fitness Journey" class="blog-img">
+        <div class="blog-info">
+          <h2 class="blog-title">Transform Your Fitness Journey</h2>
+          <p class="blog-description">Learn how to set goals and achieve them with the latest fitness apps and AI-powered coaching...</p>
+          <a href="{% url 'blog_detail' slug='fitness-journey' %}" class="btn-read">Read More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modern CSS Styling -->
+<style>
+.blog-section {
+  background: #f4f6f9;
+  padding: 4rem 2rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.page-title {
+  font-size: 2.8rem;
+  color: #1a237e;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.blog-intro {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 3rem;
+  color: #555;
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.blog-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s;
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+}
+
+.blog-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+}
+
+.blog-info {
+  padding: 1.5rem;
+}
+
+.blog-title {
+  font-size: 1.5rem;
+  color: #0d47a1;
+  margin-bottom: 0.5rem;
+}
+
+.blog-description {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.btn-read {
+  display: inline-block;
+  background: #1976d2;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.btn-read:hover {
+  background: #0d47a1;
+}
+</style>
+{% endblock %}

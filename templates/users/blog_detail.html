@@ -1,0 +1,60 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block title %}{{ blog_title }} - Health_fitness_ai Companion{% endblock %}
+
+{% block content %}
+<section class="blog-detail">
+  <div class="container">
+    <div class="blog-wrapper">
+      <h1 class="blog-title">{{ blog_title }}</h1>
+      <img src="{% static 'images/' %}{{ blog_image }}" alt="{{ blog_title }}" class="blog-img">
+      <p class="blog-content">{{ blog_full_content }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- Stylish Centered CSS -->
+<style>
+.blog-detail {
+  padding: 4rem 1rem;
+  background-color: #f9fafe;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.blog-wrapper {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.blog-title {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: #1a237e;
+  font-weight: 700;
+}
+
+.blog-img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.blog-content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #444;
+  text-align: justify;
+}
+</style>
+{% endblock %}

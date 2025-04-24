@@ -1,0 +1,136 @@
+/* Hero Section: Full height for desktop and tablet */
+.hero-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  background: url("{% static 'images/hero-background.jpg' %}") no-repeat center center;
+  background-size: cover;
+}
+
+.hero-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.text-content {
+  flex: 1;
+  color: white;
+}
+
+.image-content {
+  flex: 1;
+  text-align: center;
+}
+
+.main-hero-img {
+  max-width: 100%;
+}
+
+/* Features Section: Grid layout for larger devices */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 40px 0;
+}
+
+.feature-card {
+  text-align: center;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.feature-img-wrapper img {
+  max-width: 100%;
+}
+
+/* How It Works Section: Grid layout */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 40px 0;
+}
+
+.step-box {
+  text-align: center;
+  background: #f4f4f4;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Pricing Section: Grid layout */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.price-card {
+  background: #fff;
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.price-card.highlight {
+  background: #f8f8f8;
+  border: 2px solid #007bff;
+}
+
+/* Mobile and Tablet Layout Adjustments */
+@media (max-width: 1024px) {
+  .hero-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .text-content {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .image-content img {
+    width: 80%;
+  }
+
+  .features-grid, .steps-grid, .pricing-grid {
+    grid-template-columns: 1fr 1fr; /* 2 columns for tablets */
+  }
+
+  .price-card {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    height: auto;
+    padding: 20px;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .features-grid, .steps-grid, .pricing-grid {
+    grid-template-columns: 1fr; /* Single column for mobile */
+  }
+
+  .feature-card, .step-box, .price-card {
+    padding: 15px;
+  }
+
+  .main-hero-img {
+    max-width: 90%;
+  }
+}

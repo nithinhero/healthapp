@@ -1,0 +1,156 @@
+{% extends 'users/base.html' %}
+
+{% load static %}
+
+{% block title %}Contact Us - Health_fitness_ai Companion{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/contact.css' %}">
+
+<section class="contact-wrapper">
+  <div class="glass-card">
+    <h1 class="contact-title">💬 Let's Talk</h1>
+    <p class="contact-subtitle">We’d love to hear from you. Drop us a message and we’ll get back to you soon.</p>
+
+    <form method="POST" action="{% url 'contact_submit' %}" class="contact-form">
+      {% csrf_token %}
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" name="name" placeholder="Your name" required>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" placeholder="you@example.com" required>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea name="message" placeholder="Your message..." required></textarea>
+      </div>
+      <button type="submit" class="submit-btn">📨 Send Message</button>
+    </form>
+
+    {% if messages %}
+      {% for message in messages %}
+        <p class="success-message">{{ message }}</p>
+      {% endfor %}
+    {% endif %}
+  </div>
+</section>
+<style>
+    /* contact.css */
+.contact-wrapper {
+  background: linear-gradient(to right, #dff1f8, #f9f9f9);
+  padding: 70px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 85vh;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  max-width: 550px;
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  animation: slideUp 0.5s ease;
+}
+
+.contact-title {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.contact-subtitle {
+  font-size: 15px;
+  color: #555;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: #444;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: none;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.6);
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 0 2px #00bfa5;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.submit-btn {
+  padding: 12px;
+  background-color: #00bfa5;
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #009e88;
+}
+
+.success-message {
+  margin-top: 20px;
+  color: #2e7d32;
+  text-align: center;
+  font-weight: 600;
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+  .glass-card {
+    padding: 30px 20px;
+  }
+}
+
+</style>
+{% endblock %}

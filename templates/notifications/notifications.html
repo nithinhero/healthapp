@@ -1,0 +1,24 @@
+{% extends 'users/base.html' %}
+{% block content %}
+{% load humanize %}  <!--
+<h2>🔔 Notifications</h2>
+
+{% if notifications %}
+    <ul>
+        {% for n in notifications %}
+            <li style="{% if not n.is_read %}font-weight: bold;{% endif %}">
+                {{ n.message }} <br>
+                
+                <small>{{ n.created_at|naturaltime }}</small>
+            </li>
+        {% endfor %}
+    </ul>
+    <form method="post" action="{% url 'clear_notifications' %}">
+        {% csrf_token %}
+        <button type="submit">Clear All</button>
+    </form>
+{% else %}
+    <p>No notifications yet.</p>
+{% endif %}
+
+{% endblock %}

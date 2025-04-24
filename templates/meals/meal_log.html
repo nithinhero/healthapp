@@ -1,0 +1,119 @@
+{% extends "users/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">🍽️ Log Your Meal</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-success w-100 mt-3">Log Meal</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">📅 Today's Meals ({{ logs.count }})</h4>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for log in logs %}
+                        <li class="list-group-item">
+                            <strong>{{ log.food_name }}</strong> - {{ log.total_calories }} kcal<br>
+                            <small>Protein: {{ log.protein }}g, Carbs: {{ log.carbs }}g, Fat: {{ log.fat }}g</small>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item text-muted">No meals logged today.</li>
+                    {% endfor %}
+                </ul>
+                <div class="card-footer bg-light">
+                    <strong>🔥 Total Calories:</strong> {{ total_calories }} kcal<br>
+                    <strong>💡 Recommendation:</strong> {{ recommendation }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-8 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning">
+                    <h5 class="mb-0 text-white">📈 Weekly Calories</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="weeklyChart" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">🥗 Macro Breakdown</h5>
+                </div>
+                <div class="card-body text-center">
+                    <canvas id="macroChart" height="300"></canvas>
+                    <p class="mt-3"><strong>Most Eaten:</strong> {{ most_eaten_macro }} ({{ most_percentage }}%)</p>
+                    <p><strong>Least Eaten:</strong> {{ least_eaten_macro }} ({{ least_percentage }}%)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const weeklyCtx = document.getElementById('weeklyChart').getContext('2d');
+new Chart(weeklyCtx, {
+    type: 'line',
+    data: {
+        labels: {{ weekly_labels|safe }},
+        datasets: [{
+            label: 'Calories',
+            data: {{ weekly_calories|safe }},
+            borderColor: 'orange',
+            backgroundColor: 'rgba(255,165,0,0.2)',
+            tension: 0.3,
+            fill: true,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: false },
+            title: { display: true, text: 'Weekly Calorie Intake', font: { size: 18 } }
+        }
+    }
+});
+
+const macroCtx = document.getElementById('macroChart').getContext('2d');
+new Chart(macroCtx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Protein', 'Carbs', 'Fat'],
+        datasets: [{
+            data: [{{ macro_percentages.protein }}, {{ macro_percentages.carbs }}, {{ macro_percentages.fat }}],
+            backgroundColor: ['#4CAF50', '#FFC107', '#F44336'],
+            hoverOffset: 8
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            title: { display: true, text: "Today's Macro Distribution", font: { size: 18 } }
+        }
+    }
+});
+</script>
+{% endblock %}

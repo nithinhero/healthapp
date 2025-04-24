@@ -1,0 +1,131 @@
+{% extends "users/base.html" %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl w-full space-y-8 bg-white rounded-lg shadow-lg p-8 transform transition-all duration-500 hover:scale-105">
+
+        <!-- Profile Header -->
+        <div class="flex flex-col items-center space-y-6">
+            {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="w-32 h-32 rounded-full border-4 border-indigo-600 shadow-xl hover:scale-110 transition-transform duration-300">
+            {% else %}
+                <img src="/path/to/default/profile_picture.jpg" alt="Profile Picture" class="w-32 h-32 rounded-full border-4 border-indigo-600 shadow-xl hover:scale-110 transition-transform duration-300">
+            {% endif %}
+            <h2 class="text-3xl font-semibold text-gray-900">{{ user.username }}</h2>
+            <p class="text-xl text-gray-500">{{ profile.fitness_goal }}</p>
+        </div>
+
+        <!-- Profile Details -->
+        <div class="space-y-6 mt-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Personal Information Card -->
+                <div class="bg-gradient-to-r from-indigo-100 to-blue-50 p-6 rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                    <h3 class="text-xl font-semibold text-gray-700">Personal Information</h3>
+                    <div class="mt-4 text-gray-600 space-y-2">
+                        <p><strong>Email:</strong> {{ user.email }}</p>
+                        <p><strong>Age:</strong> {{ profile.age }}</p>
+                        <p><strong>Height:</strong> {{ profile.height }} cm</p>
+                        <p><strong>Weight:</strong> {{ profile.weight }} kg</p>
+                    </div>
+                </div>
+
+                <!-- Steps & Fitness Card -->
+                <div class="bg-gradient-to-r from-green-100 to-green-50 p-6 rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                    <h3 class="text-xl font-semibold text-gray-700">Steps & Fitness</h3>
+                    <div class="mt-4 text-gray-600">
+
+                        <!-- Round Progress Bar -->
+                        <div class="relative flex items-center justify-center mt-6">
+                            <div class="relative w-24 h-24">
+                                <svg class="absolute transform -rotate-90" width="100%" height="100%" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+                                    <path class="circle-background" fill="none" stroke="#e6e6e6" stroke-width="2" stroke-linecap="round" d="M18 2 a16 16 0 1 1 0 32 a16 16 0 1 1 0 -32"/>
+                                    <path class="circle-progress" fill="none" stroke="#4c51bf" stroke-width="2" stroke-linecap="round" stroke-dasharray="100" stroke-dashoffset="calc(100 - {{ profile.step_count }})" d="M18 2 a16 16 0 1 1 0 32 a16 16 0 1 1 0 -32"/>
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center text-xl font-semibold text-indigo-600">{{ profile.step_count }}%</div>
+                            </div>
+                        </div>
+
+                        <form method="POST" action="{% url 'update_steps' %}">
+                            {% csrf_token %}
+                            <div class="mt-4">
+                                <label for="step_count" class="block text-sm font-medium text-gray-700">Update Step Count:</label>
+                                <input type="number" name="step_count" value="{{ profile.step_count }}" class="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-all duration-300 hover:border-indigo-500 focus:border-indigo-700" required>
+                            </div>
+                            <button type="submit" class="mt-4 bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 ease-in-out transform hover:scale-105">Update Step Count</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BMI Calculation -->
+        <div class="bg-gradient-to-r from-yellow-100 to-yellow-50 p-6 rounded-lg shadow-md mt-8 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+            <h3 class="text-xl font-semibold text-gray-700">BMI Calculation</h3>
+            
+            <!-- Loader effect -->
+            <div id="loader" class="w-12 h-12 border-4 border-t-4 border-indigo-600 rounded-full animate-spin mx-auto mt-4 hidden"></div>
+
+            <!-- Display height -->
+            <div class="mt-4">
+                <label for="height" class="block text-sm font-medium text-gray-700">Height (in cm):</label>
+                <p class="mt-2 text-gray-800" id="height-value">{{ profile.height }} cm</p>
+            </div>
+    
+            <!-- Display weight -->
+            <div class="mt-4">
+                <label for="weight" class="block text-sm font-medium text-gray-700">Weight (in kg):</label>
+                <p class="mt-2 text-gray-800" id="weight-value">{{ profile.weight }} kg</p>
+            </div>
+    
+            <!-- Display BMI -->
+            <div class="mt-6">
+                <p><strong>Your BMI:</strong> 
+                    <span class="font-bold text-indigo-600" id="bmi-result">
+                        BMI not calculated
+                    </span>
+                </p>
+            </div>
+        </div>
+
+        <script>
+            // Function to calculate BMI
+            function calculateBMI() {
+                // Show loader while calculating
+                document.getElementById('loader').classList.remove('hidden');
+                
+                // Get height and weight values from the profile
+                var height = parseFloat(document.getElementById('height-value').innerText);
+                var weight = parseFloat(document.getElementById('weight-value').innerText);
+
+                // Simulate loading time for demonstration purposes (remove for production)
+                setTimeout(function() {
+                    // Calculate BMI if both height and weight are available
+                    if (height && weight) {
+                        var heightInMeters = height / 100;  // Convert height from cm to meters
+                        var bmi = (weight / (heightInMeters * heightInMeters)).toFixed(2); // Calculate BMI
+
+                        // Display BMI
+                        document.getElementById('bmi-result').innerText = bmi;
+                    } else {
+                        // Display message if BMI can't be calculated
+                        document.getElementById('bmi-result').innerText = 'BMI not calculated';
+                    }
+
+                    // Hide loader after calculation
+                    document.getElementById('loader').classList.add('hidden');
+                }, 1500); // Simulated delay (1.5 seconds)
+            }
+
+            // Call the function to calculate BMI once the page loads
+            window.onload = calculateBMI;
+        </script>
+
+        <!-- Edit Profile Button -->
+        <div class="flex justify-center mt-8">
+            <a href="{% url 'edit_profile' %}" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-all duration-200 ease-in-out transform hover:scale-105">
+                Edit Profile
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
