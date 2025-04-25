@@ -191,6 +191,10 @@ def about_view(request):
 def carrer_view(request):
     return render(request, 'users/careers.html')
 
+def press_view(request):
+    return render(request, 'users/press.html')
+
+
 
 # Notify user signup using Supabase (example feature)
 from .supabase_client import supabase
