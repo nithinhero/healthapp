@@ -1,0 +1,154 @@
+{% extends 'users/base.html' %}
+{% block title %}Press - Health_fitness_ai Companion{% endblock %}
+
+{% block content %}
+<section class="press-hero">
+  <div class="press-overlay">
+    <h1 class="press-heading">Press & Media</h1>
+    <p class="press-subtitle">
+      Discover the latest stories, press releases, and media kits about our journey.
+    </p>
+    <a href="{% url 'login' %}" class="press-btn">Login Press Kit</a>
+  </div>
+</section>
+
+<section class="press-details">
+  <div class="press-container">
+    {% load static %}
+    <img src="{% static 'images/press.jpg' %}" alt="Press Kit" class="press-image">
+    <div class="press-text">
+      <h2>Media Inquiries</h2>
+      <p>
+        Our PR team is available for media engagements, interviews, and collaborations. We are happy to support
+        journalists with facts, company stats, or quotes from our leadership.
+      </p>
+      <p>Email us: <a href="mailto:press@healthfitai.com">illingi.srimanvaraprasad@gmail.com</a></p>
+    </div>
+  </div>
+</section>
+<style>
+    /* Hero section */
+.press-hero {
+  height: 80vh;
+  background: linear-gradient(to bottom right, #000000cc, #222222cc), url('/static/images/press_background.jpg') center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: 10px;
+  color: #fff;
+  text-align: center;
+  animation: fadeInHero 2s ease-in;
+}
+
+.press-overlay {
+  max-width: 750px;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1);
+}
+
+.press-heading {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.press-subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.press-btn {
+  background: #00bcd4;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  box-shadow: 0 4px 14px rgba(0, 188, 212, 0.3);
+}
+
+.press-btn:hover {
+  background: #0097a7;
+  box-shadow: 0 6px 20px rgba(0, 150, 136, 0.4);
+}
+
+/* Details section */
+.press-details {
+  padding: 4rem 2rem;
+  background: #f6f9fc;
+  border-radius: 12px;
+  margin-top: 2rem;
+}
+
+.press-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.press-image {
+  flex: 1 1 300px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+}
+
+.press-text {
+  flex: 1 1 400px;
+  font-size: 1.1rem;
+  color: #444;
+}
+
+.press-text h2 {
+  font-size: 1.8rem;
+  color: #222;
+  margin-bottom: 1rem;
+}
+
+.press-text a {
+  color: #00bcd4;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.press-text a:hover {
+  text-decoration: underline;
+}
+
+/* Animation */
+@keyframes fadeInHero {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .press-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .press-overlay {
+    padding: 1.5rem;
+  }
+
+  .press-heading {
+    font-size: 2.3rem;
+  }
+}
+
+</style>
+{% endblock %}
