@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'notifications',
     'django.contrib.humanize',
     'social_django',
+    'widget_tweaks',
      
 ]
 
