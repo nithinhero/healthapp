@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('food_image', models.ImageField(blank=True, null=True, upload_to='food_images/')),
                 ('quantity', models.FloatField()),
                 ('units', models.CharField(choices=[('g', 'Grams'), ('kg', 'Kilograms')], max_length=10)),
-                ('time', models.CharField(choices=[('morning', 'Morning'), ('afternoon', 'Afternoon'), ('evening', 'Evening')], default=mymeals.models.get_default_meal_time, max_length=20)),
+                ('time', models.CharField(choices=[('morning', 'Morning'), ('afternoon', 'Afternoon'), ('evening', 'Evening')], default=meals.models.get_default_meal_time, max_length=20)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
             ],
         ),
