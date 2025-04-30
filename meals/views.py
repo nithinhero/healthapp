@@ -115,7 +115,7 @@ def meal_form(request):
     else:
         form = MealForm()
 
-    return render(request, 'mymeals/meal_form.html', {'form': form})
+    return render(request, 'meals/meal_form.html', {'form': form})
 
 
 @login_required
@@ -129,6 +129,6 @@ def result(request):
     for meal in meals:
         meal.nutrients = get_nutrients(meal.food_name, meal.quantity, meal.units)
 
-    return render(request, 'mymeals/result.html', {
+    return render(request, 'meals/result.html', {
         'meals': meals
     })
