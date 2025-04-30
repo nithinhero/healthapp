@@ -10,6 +10,7 @@ certifi==2025.1.31
 cffi==1.17.1
 
 gunicorn==20.1.0  # Or the latest stable version
+django-widget-tweaks
 
 channels==4.2.2
 channels_redis==4.2.1
