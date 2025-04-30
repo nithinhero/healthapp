@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'notifications',
     'django.contrib.humanize',
     'social_django',
+     'widget_tweaks',
 ]
 
 # Middleware
@@ -141,5 +142,12 @@ EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 
 # API keys
+COHERE_API_KEY = env('COHERE_API_KEY')
+IMAGGA_API_KEY = env('IMAGGA_API_KEY')
+IMAGGA_API_SECRET = env('IMAGGA_API_SECRET')
+
 USDA_API_KEY = env('USDA_API_KEY')
-OPENAI_API_KEY = env('OPENAI_API_KEY', default=None)  # Optional key
+
+print("✅ .env loaded successfully")  # Debug print
+print("COHERE_API_KEY:", COHERE_API_KEY)
+print("🔐 USDA API KEY Loaded:", USDA_API_KEY)
