@@ -1,0 +1,144 @@
+{% extends "users/base.html" %}
+{% block title %}All Meals{% endblock %}
+{% block content %}
+<div class="max-w-6xl mx-auto py-10">
+
+    <h1 class="text-4xl font-extrabold text-center text-indigo-800 dark:text-white mb-12">📊 Meal Nutritional Data</h1>
+
+    {% for meal in meals %}
+        <div class="meal-card bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 mb-10">
+            
+            <!-- Basic Meal Info -->
+            <div class="meal-info grid sm:grid-cols-3 gap-6 mb-8">
+                <div class="info-card">
+                    <div class="info-label">🥗 Food</div>
+                    <div class="info-value">{{ meal.food_name }}</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">⚖️ Quantity</div>
+                    <div class="info-value">{{ meal.quantity }} {{ meal.units }}</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">🕒 Time</div>
+                    <div class="info-value">{{ meal.time|capfirst }}</div>
+                </div>
+            </div>
+
+            <!-- Nutrients Section -->
+            <div class="nutrients-section">
+                <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">🧪 Nutritional Information</h3>
+                {% if meal.nutrients %}
+                    <div class="nutrient-grid">
+                        {% for key, value in meal.nutrients.items %}
+                            <div class="nutrient-item">
+                                <div class="nutrient-name">{{ key }}</div>
+                                <div class="nutrient-value">{{ value }}</div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-red-500 dark:text-red-400">⚠️ No nutrients found.</p>
+                {% endif %}
+            </div>
+        </div>
+    {% empty %}
+        <p class="text-center text-gray-500 dark:text-gray-400">No meals added yet.</p>
+    {% endfor %}
+</div>
+<style>
+    /* Global Styles */
+body {
+    background-color: #f7fafc;
+    color: #2d3748;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Meal Card */
+.meal-card {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.meal-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Basic Info Section */
+.meal-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.info-card {
+    background-color: #edf2f7;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.info-label {
+    font-size: 1.25rem;
+    color: #4a5568;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.info-value {
+    font-size: 1.5rem;
+    color: #2d3748;
+    font-weight: 700;
+}
+
+/* Nutrients Section */
+.nutrients-section {
+    background-color: #f7fafc;
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.nutrient-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.nutrient-item {
+    background-color: #edf2f7;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.nutrient-name {
+    font-size: 1.125rem;
+    color: #4a5568;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.nutrient-value {
+    font-size: 1.375rem;
+    color: #2d3748;
+    font-weight: 700;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+    .meal-info {
+        grid-template-columns: 1fr;
+    }
+
+    .nutrient-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+</style>
+{% endblock %}
