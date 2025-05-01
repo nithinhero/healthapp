@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'workouts',
-    'meals',
+    'mymeals',
     'ai_chat',
     'channels',
     'notifications',
