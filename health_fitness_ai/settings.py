@@ -29,7 +29,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'result'
+LOGIN_REDIRECT_URL = '/result/'
 LOGOUT_REDIRECT_URL = 'home'
 
 # Installed apps
