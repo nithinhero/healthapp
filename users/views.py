@@ -139,7 +139,7 @@ def login_view(request):
             messages.success(request, "Successfully logged in!")
             
             # Redirect to the page the user was trying to access before login
-            next_url = request.GET.get('next', 'dashboard')  # Default to 'dashboard' if no 'next' param
+            next_url = request.GET.get('next', 'result')  # Default to 'dashboard' if no 'next' param
             return redirect(next_url)
         else:
             # If authentication fails, show an error message
